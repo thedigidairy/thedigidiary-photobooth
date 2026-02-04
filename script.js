@@ -21,6 +21,7 @@ let selectedStripCount = 1;
 let capturedImages = [];
 let isCapturing = false;
 let activeStream = null;
+let finalStripCanvas = null;
 
 const screens = [introScreen, boothScreen, reviewScreen, outputScreen].filter(
   Boolean,
@@ -214,7 +215,61 @@ const buildPhotoStrip = async () => {
     canvas.height - padding - textAreaHeight / 2,
   );
 
-  return canvas.toDataURL("image/jpeg", 0.92);
+  return canvas;
+};
+
+const formatFileTimestamp = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  return `${year}${month}${day}_${hours}${minutes}`;
+};
+
+const downloadStripImage = () => {
+  if (!finalStripCanvas) {
+    return;
+  }
+
+  const filename = `digidiary_photobooth_${formatFileTimestamp()}.png`;
+  const supportsDownload = "download" in document.createElement("a");
+  const isIOS =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const triggerDownload = (url) => {
+    if (!supportsDownload || isIOS) {
+      openInNewTab(url);
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+
+  if (finalStripCanvas.toBlob) {
+    finalStripCanvas.toBlob((blob) => {
+      if (!blob) {
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      triggerDownload(url);
+      window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }, "image/png");
+  } else {
+    const dataUrl = finalStripCanvas.toDataURL("image/png");
+    triggerDownload(dataUrl);
+  }
 };
 
 const handleCaptureSequence = async () => {
@@ -282,13 +337,30 @@ const handleLooksGood = async () => {
   stopCameraStream();
   if (outputCard) {
     outputCard.innerHTML = "";
-    const stripDataUrl = await buildPhotoStrip();
-    if (stripDataUrl) {
+    const stripCanvas = await buildPhotoStrip();
+    finalStripCanvas = stripCanvas;
+    if (stripCanvas) {
+      const stripDataUrl = stripCanvas.toDataURL("image/png");
       const stripImage = document.createElement("img");
       stripImage.src = stripDataUrl;
       stripImage.alt = "Final Digidiary photo strip";
       stripImage.classList.add("output__strip", "output__strip--print");
       outputCard.appendChild(stripImage);
+
+      const saveButton = document.createElement("button");
+      saveButton.type = "button";
+      saveButton.classList.add("output__button", "output__button--hidden");
+      saveButton.textContent = "Save to Gallery";
+      saveButton.addEventListener("click", downloadStripImage);
+      outputCard.appendChild(saveButton);
+
+      stripImage.addEventListener(
+        "animationend",
+        () => {
+          saveButton.classList.remove("output__button--hidden");
+        },
+        { once: true },
+      );
     }
   }
   setActiveScreen(outputScreen);
