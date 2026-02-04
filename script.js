@@ -287,7 +287,7 @@ const handleLooksGood = async () => {
       const stripImage = document.createElement("img");
       stripImage.src = stripDataUrl;
       stripImage.alt = "Final Digidiary photo strip";
-      stripImage.classList.add("output__strip");
+      stripImage.classList.add("output__strip", "output__strip--print");
       outputCard.appendChild(stripImage);
     }
   }
