@@ -194,6 +194,8 @@ body {
   background: var(--slot-dark);
   border-radius: 999px;
   border: 4px solid var(--outline);
+  position: relative;
+  overflow: visible;
 }
 
 .intro__title {
@@ -409,7 +411,10 @@ body {
   display: grid;
   justify-items: center;
   gap: 1rem;
-  margin-top: 1.2rem;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .output__strip {
@@ -419,7 +424,7 @@ body {
   border-radius: 8px;
   border: 3px solid var(--outline);
   background: #ffffff;
-  transform: translateY(-110%);
+  transform: translateY(-100%);
 }
 
 .output__strip--print {
@@ -449,7 +454,7 @@ body {
 
 @keyframes strip-print {
   from {
-    transform: translateY(-110%);
+    transform: translateY(-100%);
   }
   to {
     transform: translateY(0);
@@ -505,7 +510,7 @@ body {
   }
 
   .booth .camera-body {
-    padding-bottom: 3.5rem;
+    padding-bottom: 1.6rem;
   }
 
   .booth .camera-lens {
@@ -526,14 +531,12 @@ body {
     justify-content: center;
     opacity: 1;
     visibility: visible;
-    position: fixed;
-    left: 50%;
-    bottom: 1.4rem;
-    transform: translateX(-50%);
-    z-index: 999;
-    margin: 0;
+    position: static;
+    z-index: 3;
+    margin: 0.6rem auto 0;
     padding: 0.85rem 2.4rem;
     font-size: 0.9rem;
+    transform: none;
   }
 
   .output,
