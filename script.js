@@ -12,6 +12,7 @@ const cameraFlash = document.querySelector(".camera-flash");
 const reviewStrip = document.querySelector(".review__strip");
 const retakeButton = document.querySelector(".review__button--ghost");
 const looksGoodButton = document.querySelector(".review__button--solid");
+const outputCard = document.querySelector(".output__card");
 
 const CAPTURE_INTERVAL_MS = 700;
 const COUNTDOWN_SECONDS = 3;
@@ -149,6 +150,73 @@ const showReviewScreen = () => {
   setActiveScreen(reviewScreen);
 };
 
+const loadImage = (source) =>
+  new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
+  });
+
+const formatStripDate = () => {
+  const today = new Date();
+  return today.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
+const buildPhotoStrip = async () => {
+  if (!capturedImages.length) {
+    return null;
+  }
+
+  const images = await Promise.all(capturedImages.map(loadImage));
+  const padding = 22;
+  const spacing = 16;
+  const textAreaHeight = 40;
+  const targetWidth = Math.max(...images.map((image) => image.naturalWidth));
+  const scaledHeights = images.map((image) =>
+    Math.round((image.naturalHeight / image.naturalWidth) * targetWidth),
+  );
+  const totalPhotoHeight = scaledHeights.reduce((sum, height) => sum + height, 0);
+  const canvas = document.createElement("canvas");
+  canvas.width = targetWidth + padding * 2;
+  canvas.height =
+    padding * 2 +
+    totalPhotoHeight +
+    spacing * (images.length - 1) +
+    textAreaHeight;
+
+  const context = canvas.getContext("2d");
+  if (!context) {
+    return null;
+  }
+
+  context.fillStyle = "#FAF9F7";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  let currentY = padding;
+  images.forEach((image, index) => {
+    const drawHeight = scaledHeights[index];
+    context.drawImage(image, padding, currentY, targetWidth, drawHeight);
+    currentY += drawHeight + spacing;
+  });
+
+  context.fillStyle = "#1f1f1f";
+  context.font = "14px 'Helvetica Neue', 'Segoe UI', system-ui, sans-serif";
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillText(
+    `DIGIDIARY • ${formatStripDate()}`,
+    canvas.width / 2,
+    canvas.height - padding - textAreaHeight / 2,
+  );
+
+  return canvas.toDataURL("image/jpeg", 0.92);
+};
+
 const handleCaptureSequence = async () => {
   if (isCapturing || !cameraFeed?.srcObject) {
     return;
@@ -210,7 +278,19 @@ const resetCaptureFlow = () => {
   startBooth();
 };
 
-const handleLooksGood = () => {
+const handleLooksGood = async () => {
+  stopCameraStream();
+  if (outputCard) {
+    outputCard.innerHTML = "";
+    const stripDataUrl = await buildPhotoStrip();
+    if (stripDataUrl) {
+      const stripImage = document.createElement("img");
+      stripImage.src = stripDataUrl;
+      stripImage.alt = "Final Digidiary photo strip";
+      stripImage.classList.add("output__strip");
+      outputCard.appendChild(stripImage);
+    }
+  }
   setActiveScreen(outputScreen);
 };
 
