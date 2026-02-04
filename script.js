@@ -195,7 +195,7 @@ const buildPhotoStrip = async () => {
     return null;
   }
 
-  context.fillStyle = "#FAF9F7";
+  context.fillStyle = "#ffffff";
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   let currentY = padding;
@@ -205,7 +205,7 @@ const buildPhotoStrip = async () => {
     currentY += drawHeight + spacing;
   });
 
-  context.fillStyle = "#1f1f1f";
+  context.fillStyle = "#111111";
   context.font = "14px 'Helvetica Neue', 'Segoe UI', system-ui, sans-serif";
   context.textAlign = "center";
   context.textBaseline = "middle";
