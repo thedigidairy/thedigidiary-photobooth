@@ -11,6 +11,8 @@
   --slot-dark: #1f1f1f;
   --accent: #d4685d;
   --machine-width: min(92vw, 760px);
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --shadow-hard: 0 12px 24px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -32,10 +34,11 @@ body {
 .app {
   width: 100%;
   min-height: 100vh;
-  padding: 2rem 1.5rem;
+  padding: 2.5rem 1.5rem 4.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2rem;
 }
 
 .screen {
@@ -69,6 +72,7 @@ body {
   align-items: center;
   gap: 0.9rem;
   position: relative;
+  pointer-events: none;
 }
 
 .camera-top {
@@ -80,6 +84,8 @@ body {
   display: grid;
   place-items: center;
   padding: clamp(0.7rem, 2vw, 1.2rem);
+  box-shadow: var(--shadow-soft);
+  pointer-events: none;
 }
 
 .camera-top__screen {
@@ -95,6 +101,7 @@ body {
   gap: 0.75rem;
   position: relative;
   text-align: center;
+  pointer-events: auto;
 }
 
 .camera-top__screen::after {
@@ -127,6 +134,8 @@ body {
   justify-content: center;
   gap: clamp(1rem, 4vw, 2.4rem);
   position: relative;
+  box-shadow: var(--shadow-hard);
+  pointer-events: none;
 }
 
 .camera-body::after {
@@ -170,6 +179,7 @@ body {
   align-content: center;
   gap: 1rem;
   position: relative;
+  pointer-events: auto;
 }
 
 .polaroid-screen::after {
@@ -196,6 +206,8 @@ body {
   border: 4px solid var(--outline);
   position: relative;
   overflow: visible;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .intro__title {
@@ -227,6 +239,7 @@ body {
   font-size: 0.95rem;
   min-width: 3rem;
   transition: transform 0.15s ease;
+  pointer-events: auto;
 }
 
 .strip-selector__button.is-selected {
@@ -249,6 +262,7 @@ body {
   letter-spacing: 0.12em;
   justify-self: center;
   transition: transform 0.15s ease;
+  pointer-events: auto;
 }
 
 .cta:active {
@@ -262,6 +276,7 @@ body {
   overflow: hidden;
   background: #111111;
   position: relative;
+  pointer-events: auto;
 }
 
 .camera-frame::after {
@@ -335,6 +350,7 @@ body {
   letter-spacing: 0.16em;
   transition: transform 0.15s ease, opacity 0.2s ease;
   justify-self: center;
+  pointer-events: auto;
 }
 
 .capture:active {
@@ -395,6 +411,7 @@ body {
   background: transparent;
   color: var(--text-primary);
   transition: transform 0.15s ease, opacity 0.2s ease;
+  pointer-events: auto;
 }
 
 .review__button:active {
@@ -406,6 +423,14 @@ body {
   color: var(--camera-screen);
 }
 
+.booth-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+  margin-top: 0.5rem;
+}
+
 .output__print-area {
   width: min(42%, 240px);
   display: grid;
@@ -415,6 +440,9 @@ body {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
+  padding-top: 0.4rem;
+  pointer-events: auto;
+  z-index: 1;
 }
 
 .output__strip {
@@ -424,7 +452,8 @@ body {
   border-radius: 8px;
   border: 3px solid var(--outline);
   background: #ffffff;
-  transform: translateY(-100%);
+  transform: translateY(-110%);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
 }
 
 .output__strip--print {
@@ -441,6 +470,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   transition: transform 0.15s ease, opacity 0.2s ease;
+  pointer-events: auto;
 }
 
 .output__button:active {
@@ -454,7 +484,7 @@ body {
 
 @keyframes strip-print {
   from {
-    transform: translateY(-100%);
+    transform: translateY(-120%);
   }
   to {
     transform: translateY(0);
@@ -481,7 +511,7 @@ body {
 
 @media (max-width: 768px) {
   .app {
-    padding: 1.5rem 1rem 5rem;
+    padding: 1.5rem 1rem 7rem;
   }
 
   .polaroid-camera {
@@ -525,18 +555,27 @@ body {
     z-index: 2;
   }
 
-  .booth .capture {
+  .booth-controls {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin-top: 0;
+  }
+
+  .booth-controls .capture {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     opacity: 1;
     visibility: visible;
     position: static;
-    z-index: 3;
-    margin: 0.6rem auto 0;
-    padding: 0.85rem 2.4rem;
-    font-size: 0.9rem;
+    margin: 0;
+    padding: 0.9rem 2.8rem;
+    font-size: 0.95rem;
     transform: none;
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.45);
   }
 
   .output,
