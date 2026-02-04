@@ -12,7 +12,7 @@ const cameraFlash = document.querySelector(".camera-flash");
 const reviewStrip = document.querySelector(".review__strip");
 const retakeButton = document.querySelector(".review__button--ghost");
 const looksGoodButton = document.querySelector(".review__button--solid");
-const outputCard = document.querySelector(".output__card");
+const outputCard = document.querySelector(".output__print-area");
 
 const CAPTURE_INTERVAL_MS = 700;
 const COUNTDOWN_SECONDS = 3;
@@ -350,7 +350,7 @@ const handleLooksGood = async () => {
       const saveButton = document.createElement("button");
       saveButton.type = "button";
       saveButton.classList.add("output__button", "output__button--hidden");
-      saveButton.textContent = "Save to Gallery";
+      saveButton.textContent = "SAVE TO GALLERY";
       saveButton.addEventListener("click", downloadStripImage);
       outputCard.appendChild(saveButton);
 
