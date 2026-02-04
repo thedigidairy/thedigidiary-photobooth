@@ -13,33 +13,31 @@
       <!-- Intro screen container with centered layout -->
       <section class="screen intro screen--active" aria-labelledby="intro-title">
         <div class="intro__card">
-          <!-- Editorial typography for the main title -->
           <h1 id="intro-title" class="intro__title">DIGIDIARY PHOTOBOOTH</h1>
           <p class="intro__subtitle">Click. Pause. Capture.</p>
 
-          <!-- Strip selection buttons grouped for accessibility -->
           <div class="strip-selector" role="group" aria-label="Strip selection">
             <button class="strip-selector__button" type="button">1</button>
             <button class="strip-selector__button" type="button">2</button>
             <button class="strip-selector__button" type="button">3</button>
           </div>
 
-          <!-- Primary call-to-action button -->
           <button class="cta" type="button">Start Booth</button>
         </div>
       </section>
 
       <section class="screen booth" aria-labelledby="booth-title">
-        <div class="booth__card">
-          <header class="booth__header">
-            <h2 id="booth-title" class="booth__title">Live Preview</h2>
-            <p class="booth__subtitle">Frame your shot before we capture.</p>
-          </header>
-
-          <div class="camera-frame">
-            <video class="camera-feed" autoplay playsinline muted></video>
-            <div class="camera-flash" aria-hidden="true"></div>
-            <div class="countdown" aria-live="polite"></div>
+        <h2 id="booth-title" class="visually-hidden">Live Preview</h2>
+        <div class="camera">
+          <div class="camera__body">
+            <div class="camera__screen">
+              <div class="camera-frame">
+                <video class="camera-feed" autoplay playsinline muted></video>
+                <div class="camera-flash" aria-hidden="true"></div>
+                <div class="countdown" aria-live="polite"></div>
+              </div>
+            </div>
+            <div class="camera__slot" aria-hidden="true"></div>
           </div>
 
           <button class="capture" type="button">Capture</button>
