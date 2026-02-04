@@ -13,13 +13,11 @@
       <!-- Intro screen container with centered layout -->
       <section class="screen intro screen--active" aria-labelledby="intro-title">
         <div class="polaroid-camera polaroid-machine">
-          <div class="camera-top"></div>
-          <div class="camera-body">
-            <div class="camera-lens" aria-hidden="true">
-              <div class="camera-lens__inner"></div>
-            </div>
-            <div class="polaroid-screen intro__card">
-              <h1 id="intro-title" class="intro__title">DIGIDIARY PHOTOBOOTH</h1>
+          <div class="camera-top">
+            <div class="camera-top__screen camera-top__screen--intro">
+              <h1 id="intro-title" class="intro__title">
+                DIGIDIARY PHOTOBOOTH
+              </h1>
               <p class="intro__subtitle">Click. Pause. Capture.</p>
 
               <div class="strip-selector" role="group" aria-label="Strip selection">
@@ -31,6 +29,11 @@
               <button class="cta" type="button">Start Booth</button>
             </div>
           </div>
+          <div class="camera-body">
+            <div class="camera-lens" aria-hidden="true">
+              <div class="camera-lens__inner"></div>
+            </div>
+          </div>
           <div class="camera-slot" aria-hidden="true"></div>
         </div>
       </section>
@@ -38,15 +41,18 @@
       <section class="screen booth" aria-labelledby="booth-title">
         <h2 id="booth-title" class="visually-hidden">Live Preview</h2>
         <div class="polaroid-camera polaroid-machine">
-          <div class="camera-top"></div>
+          <div class="camera-top">
+            <div class="camera-top__screen camera-top__screen--live">
+              <div class="camera-frame">
+                <video class="camera-feed" autoplay playsinline muted></video>
+                <div class="camera-flash" aria-hidden="true"></div>
+                <div class="countdown" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
           <div class="camera-body">
             <div class="camera-lens">
               <div class="camera-lens__inner">
-                <div class="camera-frame">
-                  <video class="camera-feed" autoplay playsinline muted></video>
-                  <div class="camera-flash" aria-hidden="true"></div>
-                  <div class="countdown" aria-live="polite"></div>
-                </div>
               </div>
             </div>
             <div class="polaroid-screen">

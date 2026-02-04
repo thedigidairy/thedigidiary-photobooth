@@ -1,5 +1,5 @@
 :root {
-  --background: #f4f1ea;
+  --background: #000000;
   --text-primary: #2b2724;
   --text-muted: #6f675e;
   --outline: #2f2c29;
@@ -73,11 +73,48 @@ body {
 }
 
 .camera-top {
-  width: 72%;
-  height: clamp(48px, 10vw, 70px);
+  width: 76%;
+  height: clamp(160px, 24vw, 210px);
   background: var(--camera-top);
   border: 4px solid var(--outline);
-  border-radius: 18px 18px 10px 10px;
+  border-radius: 20px 20px 14px 14px;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.7rem, 2vw, 1.2rem);
+}
+
+.camera-top__screen {
+  width: 100%;
+  height: 100%;
+  background: var(--camera-screen);
+  border: 4px solid var(--outline);
+  border-radius: 18px;
+  padding: clamp(0.8rem, 2vw, 1.4rem);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.75rem;
+  position: relative;
+  text-align: center;
+}
+
+.camera-top__screen::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 14px;
+  border: 2px solid rgba(47, 44, 41, 0.12);
+  pointer-events: none;
+}
+
+.camera-top__screen--live {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+
+.camera-top__screen--live::after {
+  inset: 6px;
 }
 
 .camera-body {
@@ -160,20 +197,15 @@ body {
   border: 4px solid var(--outline);
 }
 
-.intro__card {
-  text-align: center;
-  gap: 0.8rem;
-}
-
 .intro__title {
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  font-weight: 600;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: 650;
   text-transform: uppercase;
-  margin-bottom: 0.3rem;
+  letter-spacing: 0.08em;
 }
 
 .intro__subtitle {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
 }
 
@@ -209,9 +241,9 @@ body {
   border: 2px solid var(--outline);
   background: var(--accent);
   color: var(--camera-screen);
-  padding: 0.8rem 2.3rem;
+  padding: 0.7rem 2.1rem;
   border-radius: 999px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   justify-self: center;
@@ -225,7 +257,7 @@ body {
 .camera-frame {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 16px;
   overflow: hidden;
   background: #111111;
   position: relative;
@@ -448,7 +480,7 @@ body {
 
 @media (max-width: 600px) {
   .camera-top {
-    width: 82%;
+    width: 86%;
   }
 
   .polaroid-screen {
