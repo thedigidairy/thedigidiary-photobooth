@@ -23,12 +23,27 @@ body {
   place-items: center;
 }
 
-/* Centered layout container */
-.intro {
-  width: min(90%, 720px);
+/* App layout and screen transitions */
+.app {
+  width: min(92%, 960px);
+  min-height: 75vh;
+  position: relative;
+  padding: 4rem 0;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
   display: grid;
   place-items: center;
-  padding: 4rem 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.screen--active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Card for the intro content with ample whitespace */
@@ -93,9 +108,58 @@ body {
   transform: translateY(2px) scale(0.98);
 }
 
+.booth__card {
+  width: min(92%, 640px);
+  border: 1px solid var(--border-soft);
+  border-radius: 28px;
+  padding: 2.8rem 2.5rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+  display: grid;
+  gap: 2rem;
+}
+
+.booth__title {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  font-weight: 600;
+}
+
+.booth__subtitle {
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+}
+
+.camera-frame {
+  width: min(90vw, 520px);
+  aspect-ratio: 3 / 4;
+  border-radius: 26px;
+  overflow: hidden;
+  background: rgba(31, 31, 31, 0.08);
+  margin: 0 auto;
+  box-shadow: 0 16px 30px rgba(31, 31, 31, 0.12);
+  max-height: 70vh;
+}
+
+.camera-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.camera-message {
+  min-height: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
 @media (max-width: 600px) {
   .intro__card {
     padding: 2.5rem 1.5rem;
+  }
+
+  .booth__card {
+    padding: 2.2rem 1.5rem;
   }
 
   .strip-selector {
