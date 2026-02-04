@@ -62,12 +62,8 @@ body {
 
 .intro__card {
   width: min(90vw, 520px);
-  border: 1px solid rgba(244, 241, 234, 0.2);
-  border-radius: 28px;
-  padding: 3rem 2.5rem;
+  padding: 2.5rem 1.5rem;
   text-align: center;
-  background: rgba(9, 9, 9, 0.7);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
 .intro__title {
@@ -313,6 +309,13 @@ body {
   border-color: var(--text-primary);
 }
 
+.output__machine {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  position: relative;
+}
+
 .output__card {
   width: min(90vw, 560px);
   aspect-ratio: 5 / 4;
@@ -325,13 +328,11 @@ body {
   position: relative;
   display: grid;
   place-items: center;
-  padding-bottom: 4.5rem;
+  padding: 2.5rem 2.5rem 3.5rem;
+  z-index: 2;
 }
 
-.output__card::before {
-  content: "";
-  position: absolute;
-  top: 2.2rem;
+.output__screen {
   width: min(80%, 420px);
   aspect-ratio: 4 / 3;
   border-radius: 18px;
@@ -340,8 +341,7 @@ body {
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.06);
 }
 
-.output__card::after {
-  content: "";
+.output__slot {
   position: absolute;
   bottom: 1.4rem;
   width: min(70%, 320px);
@@ -352,8 +352,19 @@ body {
   z-index: 3;
 }
 
+.output__print-area {
+  width: min(60vw, 260px);
+  min-height: 360px;
+  display: grid;
+  justify-items: center;
+  gap: 1.6rem;
+  margin-top: -1.8rem;
+  position: relative;
+  z-index: 1;
+}
+
 .output__strip {
-  width: min(55%, 240px);
+  width: 100%;
   height: auto;
   max-height: 70vh;
   object-fit: contain;
@@ -361,15 +372,11 @@ body {
     0 18px 28px rgba(0, 0, 0, 0.35),
     0 6px 12px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -40px);
-  z-index: 2;
+  transform: translateY(-120%);
 }
 
 .output__strip--print {
-  animation: strip-print 3.6s ease-out forwards;
+  animation: strip-print 3s ease-out forwards;
 }
 
 .output__button {
@@ -382,14 +389,10 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   transition: transform 0.15s ease, opacity 0.2s ease;
-  position: absolute;
-  left: 50%;
-  top: calc(55% + 220px);
-  transform: translateX(-50%);
 }
 
 .output__button:active {
-  transform: translate(-50%, 2px) scale(0.98);
+  transform: translateY(2px) scale(0.98);
 }
 
 .output__button--hidden {
@@ -399,10 +402,10 @@ body {
 
 @keyframes strip-print {
   from {
-    transform: translate(-50%, -140px);
+    transform: translateY(-120%);
   }
   to {
-    transform: translate(-50%, 140px);
+    transform: translateY(0);
   }
 }
 
@@ -410,10 +413,6 @@ body {
   .camera__body,
   .output__card {
     padding: 2rem 1.6rem 3.2rem;
-  }
-
-  .output__button {
-    top: calc(55% + 200px);
   }
 }
 
