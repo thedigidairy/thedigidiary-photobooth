@@ -275,6 +275,19 @@ body {
   border: 1px solid var(--border-soft);
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.5);
+  display: grid;
+  place-items: center;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.output__strip {
+  width: min(70%, 260px);
+  height: auto;
+  max-height: 65vh;
+  object-fit: contain;
+  box-shadow: 0 14px 30px rgba(31, 31, 31, 0.12);
+  border-radius: 0;
 }
 
 @media (max-width: 600px) {
