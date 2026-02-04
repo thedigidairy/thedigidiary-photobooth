@@ -1,3 +1,13 @@
+body {
+  margin: 0;
+  background: #0b0b0b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
 :root {
   --background: #050505;
   --text-primary: #f4f1ea;
