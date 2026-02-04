@@ -1,28 +1,20 @@
-body {
-  margin: 0;
-  background: #0b0b0b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-}
-
 :root {
   --background: #050505;
   --text-primary: #f4f1ea;
   --text-muted: #b3ada2;
-  --camera-body: #e9e1d5;
-  --camera-top: #f1eadf;
   --camera-shadow: rgba(0, 0, 0, 0.55);
-  --camera-border: rgba(10, 10, 10, 0.28);
   --screen-border: #1d1d1d;
-  --slot: #141414;
   --paper: #ffffff;
-  --lens-ring: #2a2a2a;
-  --lens-glass: #0f0f0f;
-  --shutter: #c6372f;
-  --sensor: #dcd7cf;
+  --slot: #141414;
+  --machine-width: min(92vw, 760px);
+  --machine-aspect: 4 / 3;
+  --screen-top: 23%;
+  --screen-left: 14%;
+  --screen-width: 54%;
+  --screen-height: 36%;
+  --slot-top: 74%;
+  --slot-width: 52%;
+  --slot-height: 10px;
 }
 
 * {
@@ -45,7 +37,7 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  padding: 4rem 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .screen {
@@ -75,10 +67,60 @@ body {
   border: 0;
 }
 
+.polaroid-machine {
+  width: var(--machine-width);
+  aspect-ratio: var(--machine-aspect);
+  position: relative;
+  display: grid;
+  place-items: center;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20800%20600%27%3E%0A%20%20%3Crect%20width%3D%27800%27%20height%3D%27600%27%20rx%3D%2770%27%20fill%3D%27%23e6dfd4%27/%3E%0A%20%20%3Crect%20width%3D%27800%27%20height%3D%27140%27%20rx%3D%2770%27%20fill%3D%27%23f2ece2%27/%3E%0A%20%20%3Crect%20x%3D%2780%27%20y%3D%27170%27%20width%3D%27400%27%20height%3D%27260%27%20rx%3D%2728%27%20fill%3D%27%23111111%27%20opacity%3D%270.2%27/%3E%0A%20%20%3Ccircle%20cx%3D%27545%27%20cy%3D%27330%27%20r%3D%2782%27%20fill%3D%27%232a2a2a%27/%3E%0A%20%20%3Ccircle%20cx%3D%27545%27%20cy%3D%27330%27%20r%3D%2754%27%20fill%3D%27%230f0f0f%27/%3E%0A%20%20%3Ccircle%20cx%3D%27250%27%20cy%3D%27320%27%20r%3D%2726%27%20fill%3D%27%23c6372f%27/%3E%0A%20%20%3Ccircle%20cx%3D%27675%27%20cy%3D%27320%27%20r%3D%2720%27%20fill%3D%27%23dcd7cf%27/%3E%0A%20%20%3Crect%20x%3D%27210%27%20y%3D%27455%27%20width%3D%27380%27%20height%3D%2720%27%20rx%3D%2710%27%20fill%3D%27%23111111%27/%3E%0A%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.55));
+}
+
+.polaroid-screen {
+  position: absolute;
+  top: var(--screen-top);
+  left: var(--screen-left);
+  width: var(--screen-width);
+  height: var(--screen-height);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #0f0f0f;
+  border: 3px solid var(--screen-border);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+}
+
+.booth .polaroid-screen,
+.output .polaroid-screen {
+  padding: 0;
+}
+
+.polaroid-slot {
+  position: absolute;
+  top: var(--slot-top);
+  left: 50%;
+  width: var(--slot-width);
+  height: var(--slot-height);
+  transform: translateX(-50%);
+  background: var(--slot);
+  border-radius: 999px;
+  box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.65);
+}
+
 .intro__card {
-  width: min(90vw, 520px);
-  padding: 2.5rem 1.5rem;
+  width: 100%;
+  height: 100%;
   text-align: center;
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  padding: 0 1rem;
 }
 
 .intro__title {
@@ -137,66 +179,20 @@ body {
   transform: translateY(2px) scale(0.98);
 }
 
-.camera {
-  display: grid;
-  justify-items: center;
-  gap: 1.8rem;
-}
-
-.camera__shell,
-.output__shell {
-  display: grid;
-  justify-items: center;
-  gap: 0.5rem;
-}
-
-.camera__top,
-.output__top {
-  width: min(60vw, 360px);
-  height: 60px;
-  background: var(--camera-top);
-  border-radius: 999px;
-  box-shadow: 0 12px 20px var(--camera-shadow);
-  border: 1px solid var(--camera-border);
-}
-
-.camera__body {
-  width: min(90vw, 560px);
-  aspect-ratio: 5 / 4;
-  background: var(--camera-body);
-  border-radius: 42px;
-  border: 1px solid var(--camera-border);
-  box-shadow:
-    0 32px 50px var(--camera-shadow),
-    inset 0 3px 0 rgba(255, 255, 255, 0.35);
-  display: grid;
-  align-content: start;
-  justify-items: center;
-  padding: 2.2rem 2.5rem 3.8rem;
-  position: relative;
-  gap: 1.6rem;
-}
-
-.camera__screen {
-  width: min(82%, 420px);
-}
-
 .camera-frame {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 16px;
+  height: 100%;
+  border-radius: 12px;
   overflow: hidden;
   background: #0f0f0f;
-  border: 3px solid var(--screen-border);
   position: relative;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08);
 }
 
 .camera-frame::after {
   content: "";
   position: absolute;
   inset: 0;
-  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.55);
   pointer-events: none;
 }
 
@@ -252,59 +248,20 @@ body {
   }
 }
 
-.camera__slot {
-  position: absolute;
-  bottom: 1.2rem;
-  width: min(74%, 340px);
-  height: 10px;
-  background: var(--slot);
-  border-radius: 6px;
-  box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.65);
-}
-
-.camera__controls {
-  width: min(78%, 380px);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.camera__lens {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: var(--lens-glass);
-  border: 10px solid var(--lens-ring);
-  box-shadow: inset 0 0 0 8px #1f1f1f;
-}
-
-.camera__button {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 3px solid rgba(0, 0, 0, 0.25);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
-}
-
-.camera__button--shutter {
-  background: var(--shutter);
-}
-
-.camera__button--sensor {
-  background: var(--sensor);
-}
-
 .capture {
-  border: 1px solid rgba(244, 241, 234, 0.7);
-  background: transparent;
+  position: absolute;
+  top: 18%;
+  right: 14%;
+  border: 2px solid rgba(10, 10, 10, 0.4);
+  background: #c6372f;
   color: var(--text-primary);
-  padding: 0.7rem 2.4rem;
+  padding: 0.65rem 1.4rem;
   border-radius: 999px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  transition: transform 0.15s ease, opacity 0.2s ease;
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
 .capture:active {
@@ -317,21 +274,28 @@ body {
 }
 
 .camera-message {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
   min-height: 1.5rem;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   text-align: center;
+  width: min(80%, 360px);
 }
 
 .review__card {
-  width: min(90vw, 520px);
+  width: 100%;
+  height: 100%;
   display: grid;
   gap: 2.4rem;
   justify-items: center;
+  align-content: center;
 }
 
 .review__strip {
-  width: min(70%, 240px);
+  width: min(70%, 220px);
   background: var(--paper);
   padding: 1.2rem 1rem 2rem;
   border-radius: 12px 12px 16px 16px;
@@ -376,72 +340,29 @@ body {
   border-color: var(--text-primary);
 }
 
-.output__machine {
-  display: grid;
-  justify-items: center;
-  gap: 0.8rem;
-  position: relative;
-}
-
-.output__card {
-  width: min(90vw, 560px);
-  aspect-ratio: 5 / 4;
-  background: var(--camera-body);
-  border-radius: 42px;
-  border: 1px solid var(--camera-border);
-  box-shadow:
-    0 32px 50px var(--camera-shadow),
-    inset 0 3px 0 rgba(255, 255, 255, 0.35);
-  position: relative;
-  display: grid;
-  align-content: start;
-  justify-items: center;
-  padding: 2.2rem 2.5rem 3.8rem;
-  gap: 1.6rem;
-  z-index: 2;
-}
-
-.output__screen {
-  width: min(82%, 420px);
-  aspect-ratio: 4 / 3;
-  border-radius: 16px;
-  border: 3px solid var(--screen-border);
-  background: #0f0f0f;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08);
-}
-
-.output__slot {
-  position: absolute;
-  bottom: 1.2rem;
-  width: min(74%, 340px);
-  height: 10px;
-  background: var(--slot);
-  border-radius: 6px;
-  box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.65);
-  z-index: 3;
-}
-
 .output__print-area {
-  width: min(60vw, 260px);
-  min-height: 360px;
+  position: absolute;
+  top: calc(var(--slot-top) + 1.2%);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(42%, 240px);
+  height: 50%;
   display: grid;
   justify-items: center;
-  gap: 1.6rem;
-  margin-top: -2.2rem;
-  position: relative;
-  z-index: 1;
+  gap: 1.2rem;
+  overflow: hidden;
 }
 
 .output__strip {
   width: 100%;
   height: auto;
-  max-height: 70vh;
+  max-height: 82%;
   object-fit: contain;
   box-shadow:
     0 18px 28px rgba(0, 0, 0, 0.35),
     0 6px 12px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  transform: translateY(-80%);
+  transform: translateY(-110%);
 }
 
 .output__strip--print {
@@ -450,7 +371,7 @@ body {
 
 .output__button {
   border: 1px solid rgba(244, 241, 234, 0.8);
-  background: transparent;
+  background: rgba(10, 10, 10, 0.2);
   color: var(--text-primary);
   padding: 0.7rem 2.4rem;
   border-radius: 999px;
@@ -458,6 +379,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   transition: transform 0.15s ease, opacity 0.2s ease;
+  margin-top: 0.6rem;
 }
 
 .output__button:active {
@@ -469,42 +391,9 @@ body {
   pointer-events: none;
 }
 
-.output__controls {
-  width: min(78%, 380px);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.output__lens {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: var(--lens-glass);
-  border: 10px solid var(--lens-ring);
-  box-shadow: inset 0 0 0 8px #1f1f1f;
-}
-
-.output__control {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 3px solid rgba(0, 0, 0, 0.25);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
-}
-
-.output__control--shutter {
-  background: var(--shutter);
-}
-
-.output__control--sensor {
-  background: var(--sensor);
-}
-
 @keyframes strip-print {
   from {
-    transform: translateY(-80%);
+    transform: translateY(-110%);
   }
   to {
     transform: translateY(0);
@@ -512,34 +401,23 @@ body {
 }
 
 @media (max-width: 700px) {
-  .camera__body,
-  .output__card {
-    padding: 2rem 1.6rem 3.2rem;
+  :root {
+    --screen-left: 12%;
+    --screen-width: 58%;
+    --screen-height: 34%;
+    --slot-top: 76%;
   }
 
-  .camera__top,
-  .output__top {
-    width: min(70vw, 320px);
-    height: 52px;
-  }
-
-  .camera__lens,
-  .output__lens {
-    width: 90px;
-    height: 90px;
-    border-width: 8px;
-  }
-
-  .camera__button,
-  .output__control {
-    width: 34px;
-    height: 34px;
+  .capture {
+    top: 16%;
+    right: 10%;
+    font-size: 0.72rem;
   }
 }
 
 @media (max-width: 600px) {
   .intro__card {
-    padding: 2.5rem 1.5rem;
+    padding: 0 0.5rem;
   }
 
   .strip-selector {
