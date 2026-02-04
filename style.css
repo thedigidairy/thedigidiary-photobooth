@@ -474,6 +474,37 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .booth .camera-body {
+    padding-bottom: 2.2rem;
+  }
+
+  .booth .camera-lens {
+    z-index: 1;
+  }
+
+  .booth .polaroid-screen {
+    width: 100%;
+    margin-top: 0.6rem;
+    padding-bottom: 1.8rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .booth .capture {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    z-index: 3;
+    margin: 0.5rem auto 0;
+    padding: 0.85rem 2.4rem;
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 600px) {
   .camera-top {
     width: 86%;
