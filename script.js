@@ -1,12 +1,17 @@
 const startButton = document.querySelector(".cta");
 const introScreen = document.querySelector(".intro");
 const boothScreen = document.querySelector(".booth");
+const reviewScreen = document.querySelector(".review");
+const outputScreen = document.querySelector(".output");
 const cameraFeed = document.querySelector(".camera-feed");
 const cameraMessage = document.querySelector(".camera-message");
 const stripButtons = document.querySelectorAll(".strip-selector__button");
 const captureButton = document.querySelector(".capture");
 const countdownDisplay = document.querySelector(".countdown");
 const cameraFlash = document.querySelector(".camera-flash");
+const reviewStrip = document.querySelector(".review__strip");
+const retakeButton = document.querySelector(".review__button--ghost");
+const looksGoodButton = document.querySelector(".review__button--solid");
 
 const CAPTURE_INTERVAL_MS = 700;
 const COUNTDOWN_SECONDS = 3;
@@ -14,12 +19,14 @@ const COUNTDOWN_SECONDS = 3;
 let selectedStripCount = 1;
 let capturedImages = [];
 let isCapturing = false;
+let activeStream = null;
+
+const screens = [introScreen, boothScreen, reviewScreen, outputScreen].filter(
+  Boolean,
+);
 
 const setActiveScreen = (activeScreen) => {
-  [introScreen, boothScreen].forEach((screen) => {
-    if (!screen) {
-      return;
-    }
+  screens.forEach((screen) => {
     screen.classList.toggle("screen--active", screen === activeScreen);
   });
 };
@@ -35,6 +42,16 @@ const getCameraStream = async () => {
     },
     audio: false,
   });
+};
+
+const stopCameraStream = () => {
+  if (activeStream) {
+    activeStream.getTracks().forEach((track) => track.stop());
+  }
+  activeStream = null;
+  if (cameraFeed) {
+    cameraFeed.srcObject = null;
+  }
 };
 
 const showCameraMessage = (message) => {
@@ -114,6 +131,24 @@ const captureFrame = () => {
   return canvas.toDataURL("image/jpeg", 0.92);
 };
 
+const renderReviewStrip = () => {
+  if (!reviewStrip) {
+    return;
+  }
+  reviewStrip.innerHTML = "";
+  capturedImages.forEach((imageData, index) => {
+    const image = document.createElement("img");
+    image.src = imageData;
+    image.alt = `Captured photo ${index + 1}`;
+    reviewStrip.appendChild(image);
+  });
+};
+
+const showReviewScreen = () => {
+  renderReviewStrip();
+  setActiveScreen(reviewScreen);
+};
+
 const handleCaptureSequence = async () => {
   if (isCapturing || !cameraFeed?.srcObject) {
     return;
@@ -121,7 +156,9 @@ const handleCaptureSequence = async () => {
 
   setCaptureState(true);
   capturedImages = [];
-  showCameraMessage(`Get ready... (${selectedStripCount} shot${selectedStripCount > 1 ? "s" : ""})`);
+  showCameraMessage(
+    `Get ready... (${selectedStripCount} shot${selectedStripCount > 1 ? "s" : ""})`,
+  );
 
   for (let shotIndex = 0; shotIndex < selectedStripCount; shotIndex += 1) {
     await runCountdown();
@@ -130,14 +167,18 @@ const handleCaptureSequence = async () => {
       capturedImages.push(imageData);
     }
     triggerFlash();
-    showCameraMessage(`Captured ${capturedImages.length} of ${selectedStripCount}.`);
+    showCameraMessage(
+      `Captured ${capturedImages.length} of ${selectedStripCount}.`,
+    );
     if (shotIndex < selectedStripCount - 1) {
       await sleep(CAPTURE_INTERVAL_MS);
     }
   }
 
-  showCameraMessage(`Capture complete. ${capturedImages.length} photo${capturedImages.length !== 1 ? "s" : ""} saved.`);
+  showCameraMessage("");
   setCaptureState(false);
+  stopCameraStream();
+  showReviewScreen();
 };
 
 const startBooth = async () => {
@@ -146,10 +187,12 @@ const startBooth = async () => {
 
   try {
     const stream = await getCameraStream();
+    activeStream = stream;
     if (cameraFeed) {
       cameraFeed.srcObject = stream;
     }
     showCameraMessage("");
+    setCaptureState(false);
   } catch (error) {
     const isDenied =
       error?.name === "NotAllowedError" || error?.name === "SecurityError";
@@ -160,13 +203,26 @@ const startBooth = async () => {
   }
 };
 
+const resetCaptureFlow = () => {
+  capturedImages = [];
+  renderReviewStrip();
+  stopCameraStream();
+  startBooth();
+};
+
+const handleLooksGood = () => {
+  setActiveScreen(outputScreen);
+};
+
 stripButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const nextCount = Number(button.textContent);
     if (!Number.isNaN(nextCount)) {
       selectedStripCount = nextCount;
       updateStripSelection(button);
-      showCameraMessage(`Strip set to ${selectedStripCount} photo${selectedStripCount > 1 ? "s" : ""}.`);
+      showCameraMessage(
+        `Strip set to ${selectedStripCount} photo${selectedStripCount > 1 ? "s" : ""}.`,
+      );
     }
   });
 });
@@ -182,4 +238,12 @@ if (startButton) {
 
 if (captureButton) {
   captureButton.addEventListener("click", handleCaptureSequence);
+}
+
+if (retakeButton) {
+  retakeButton.addEventListener("click", resetCaptureFlow);
+}
+
+if (looksGoodButton) {
+  looksGoodButton.addEventListener("click", handleLooksGood);
 }
