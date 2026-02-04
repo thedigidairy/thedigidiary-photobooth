@@ -475,8 +475,37 @@ body {
 }
 
 @media (max-width: 768px) {
+  .app {
+    padding: 1.5rem 1rem 5rem;
+  }
+
+  .polaroid-camera {
+    width: min(94vw, 520px);
+    gap: 0.7rem;
+  }
+
+  .camera-top {
+    width: 88%;
+    height: clamp(130px, 34vw, 180px);
+    padding: clamp(0.5rem, 2vw, 0.9rem);
+  }
+
+  .camera-body {
+    padding: clamp(0.9rem, 3.5vw, 1.4rem);
+    gap: clamp(0.8rem, 3vw, 1.6rem);
+  }
+
+  .camera-lens {
+    width: clamp(120px, 32vw, 170px);
+    height: clamp(120px, 32vw, 170px);
+  }
+
+  .polaroid-screen {
+    min-height: clamp(170px, 40vw, 230px);
+  }
+
   .booth .camera-body {
-    padding-bottom: 2.2rem;
+    padding-bottom: 3.5rem;
   }
 
   .booth .camera-lens {
@@ -497,11 +526,20 @@ body {
     justify-content: center;
     opacity: 1;
     visibility: visible;
-    position: relative;
-    z-index: 3;
-    margin: 0.5rem auto 0;
+    position: fixed;
+    left: 50%;
+    bottom: 1.4rem;
+    transform: translateX(-50%);
+    z-index: 999;
+    margin: 0;
     padding: 0.85rem 2.4rem;
     font-size: 0.9rem;
+  }
+
+  .output,
+  .output .polaroid-camera,
+  .output__print-area {
+    overflow: visible;
   }
 }
 
