@@ -12,60 +12,85 @@
     <main class="app">
       <!-- Intro screen container with centered layout -->
       <section class="screen intro screen--active" aria-labelledby="intro-title">
-        <div class="polaroid-machine">
-          <div class="polaroid-screen intro__card">
-            <h1 id="intro-title" class="intro__title">DIGIDIARY PHOTOBOOTH</h1>
-            <p class="intro__subtitle">Click. Pause. Capture.</p>
-
-            <div class="strip-selector" role="group" aria-label="Strip selection">
-              <button class="strip-selector__button" type="button">1</button>
-              <button class="strip-selector__button" type="button">2</button>
-              <button class="strip-selector__button" type="button">3</button>
+        <div class="polaroid-camera polaroid-machine">
+          <div class="camera-top"></div>
+          <div class="camera-body">
+            <div class="camera-lens" aria-hidden="true">
+              <div class="camera-lens__inner"></div>
             </div>
+            <div class="polaroid-screen intro__card">
+              <h1 id="intro-title" class="intro__title">DIGIDIARY PHOTOBOOTH</h1>
+              <p class="intro__subtitle">Click. Pause. Capture.</p>
 
-            <button class="cta" type="button">Start Booth</button>
+              <div class="strip-selector" role="group" aria-label="Strip selection">
+                <button class="strip-selector__button" type="button">1</button>
+                <button class="strip-selector__button" type="button">2</button>
+                <button class="strip-selector__button" type="button">3</button>
+              </div>
+
+              <button class="cta" type="button">Start Booth</button>
+            </div>
           </div>
-          <div class="polaroid-slot" aria-hidden="true"></div>
+          <div class="camera-slot" aria-hidden="true"></div>
         </div>
       </section>
 
       <section class="screen booth" aria-labelledby="booth-title">
         <h2 id="booth-title" class="visually-hidden">Live Preview</h2>
-        <div class="polaroid-machine">
-          <div class="polaroid-screen">
-            <div class="camera-frame">
-              <video class="camera-feed" autoplay playsinline muted></video>
-              <div class="camera-flash" aria-hidden="true"></div>
-              <div class="countdown" aria-live="polite"></div>
+        <div class="polaroid-camera polaroid-machine">
+          <div class="camera-top"></div>
+          <div class="camera-body">
+            <div class="camera-lens">
+              <div class="camera-lens__inner">
+                <div class="camera-frame">
+                  <video class="camera-feed" autoplay playsinline muted></video>
+                  <div class="camera-flash" aria-hidden="true"></div>
+                  <div class="countdown" aria-live="polite"></div>
+                </div>
+              </div>
+            </div>
+            <div class="polaroid-screen">
+              <p class="camera-message" role="status" aria-live="polite"></p>
+              <button class="capture" type="button">Capture</button>
             </div>
           </div>
-          <div class="polaroid-slot" aria-hidden="true"></div>
-          <button class="capture" type="button">Capture</button>
-          <p class="camera-message" role="status" aria-live="polite"></p>
+          <div class="camera-slot" aria-hidden="true"></div>
         </div>
       </section>
 
       <section class="screen review" aria-label="Review captured photos">
-        <div class="polaroid-machine">
-          <div class="polaroid-screen review__card">
-            <div class="review__strip" aria-live="polite"></div>
-            <div class="review__actions">
-              <button class="review__button review__button--ghost" type="button">
-                Retake
-              </button>
-              <button class="review__button review__button--solid" type="button">
-                Looks Good
-              </button>
+        <div class="polaroid-camera polaroid-machine">
+          <div class="camera-top"></div>
+          <div class="camera-body">
+            <div class="camera-lens" aria-hidden="true">
+              <div class="camera-lens__inner"></div>
+            </div>
+            <div class="polaroid-screen review__card">
+              <div class="review__strip" aria-live="polite"></div>
+              <div class="review__actions">
+                <button class="review__button review__button--ghost" type="button">
+                  Retake
+                </button>
+                <button class="review__button review__button--solid" type="button">
+                  Looks Good
+                </button>
+              </div>
             </div>
           </div>
-          <div class="polaroid-slot" aria-hidden="true"></div>
+          <div class="camera-slot" aria-hidden="true"></div>
         </div>
       </section>
 
       <section class="screen output" aria-label="Final output placeholder">
-        <div class="polaroid-machine polaroid-machine--output">
-          <div class="polaroid-screen output__screen" aria-hidden="true"></div>
-          <div class="polaroid-slot" aria-hidden="true"></div>
+        <div class="polaroid-camera polaroid-machine polaroid-machine--output">
+          <div class="camera-top"></div>
+          <div class="camera-body">
+            <div class="camera-lens" aria-hidden="true">
+              <div class="camera-lens__inner"></div>
+            </div>
+            <div class="polaroid-screen output__screen" aria-hidden="true"></div>
+          </div>
+          <div class="camera-slot" aria-hidden="true"></div>
           <div class="output__print-area" aria-live="polite"></div>
         </div>
       </section>
