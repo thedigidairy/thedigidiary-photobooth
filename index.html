@@ -9,22 +9,39 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Intro screen container with centered layout -->
-    <main class="intro">
-      <section class="intro__card" aria-labelledby="intro-title">
-        <!-- Editorial typography for the main title -->
-        <h1 id="intro-title" class="intro__title">DIGIDIARY PHOTOBOOTH</h1>
-        <p class="intro__subtitle">Click. Pause. Capture.</p>
+    <main class="app">
+      <!-- Intro screen container with centered layout -->
+      <section class="screen intro screen--active" aria-labelledby="intro-title">
+        <div class="intro__card">
+          <!-- Editorial typography for the main title -->
+          <h1 id="intro-title" class="intro__title">DIGIDIARY PHOTOBOOTH</h1>
+          <p class="intro__subtitle">Click. Pause. Capture.</p>
 
-        <!-- Strip selection buttons grouped for accessibility -->
-        <div class="strip-selector" role="group" aria-label="Strip selection">
-          <button class="strip-selector__button" type="button">1</button>
-          <button class="strip-selector__button" type="button">2</button>
-          <button class="strip-selector__button" type="button">3</button>
+          <!-- Strip selection buttons grouped for accessibility -->
+          <div class="strip-selector" role="group" aria-label="Strip selection">
+            <button class="strip-selector__button" type="button">1</button>
+            <button class="strip-selector__button" type="button">2</button>
+            <button class="strip-selector__button" type="button">3</button>
+          </div>
+
+          <!-- Primary call-to-action button -->
+          <button class="cta" type="button">Start Booth</button>
         </div>
+      </section>
 
-        <!-- Primary call-to-action button -->
-        <button class="cta" type="button">Start Booth</button>
+      <section class="screen booth" aria-labelledby="booth-title">
+        <div class="booth__card">
+          <header class="booth__header">
+            <h2 id="booth-title" class="booth__title">Live Preview</h2>
+            <p class="booth__subtitle">Frame your shot before we capture.</p>
+          </header>
+
+          <div class="camera-frame">
+            <video class="camera-feed" autoplay playsinline muted></video>
+          </div>
+
+          <p class="camera-message" role="status" aria-live="polite"></p>
+        </div>
       </section>
     </main>
 
