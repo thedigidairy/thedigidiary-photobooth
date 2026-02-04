@@ -29,15 +29,23 @@
       <section class="screen booth" aria-labelledby="booth-title">
         <h2 id="booth-title" class="visually-hidden">Live Preview</h2>
         <div class="camera">
-          <div class="camera__body">
-            <div class="camera__screen">
-              <div class="camera-frame">
-                <video class="camera-feed" autoplay playsinline muted></video>
-                <div class="camera-flash" aria-hidden="true"></div>
-                <div class="countdown" aria-live="polite"></div>
+          <div class="camera__shell">
+            <div class="camera__top" aria-hidden="true"></div>
+            <div class="camera__body">
+              <div class="camera__screen">
+                <div class="camera-frame">
+                  <video class="camera-feed" autoplay playsinline muted></video>
+                  <div class="camera-flash" aria-hidden="true"></div>
+                  <div class="countdown" aria-live="polite"></div>
+                </div>
               </div>
+              <div class="camera__controls" aria-hidden="true">
+                <div class="camera__button camera__button--shutter"></div>
+                <div class="camera__lens"></div>
+                <div class="camera__button camera__button--sensor"></div>
+              </div>
+              <div class="camera__slot" aria-hidden="true"></div>
             </div>
-            <div class="camera__slot" aria-hidden="true"></div>
           </div>
 
           <button class="capture" type="button">Capture</button>
@@ -61,9 +69,17 @@
 
       <section class="screen output" aria-label="Final output placeholder">
         <div class="output__machine">
-          <div class="output__card">
-            <div class="output__screen" aria-hidden="true"></div>
-            <div class="output__slot" aria-hidden="true"></div>
+          <div class="output__shell">
+            <div class="output__top" aria-hidden="true"></div>
+            <div class="output__card">
+              <div class="output__screen" aria-hidden="true"></div>
+              <div class="output__controls" aria-hidden="true">
+                <div class="output__control output__control--shutter"></div>
+                <div class="output__lens"></div>
+                <div class="output__control output__control--sensor"></div>
+              </div>
+              <div class="output__slot" aria-hidden="true"></div>
+            </div>
           </div>
           <div class="output__print-area" aria-live="polite"></div>
         </div>
