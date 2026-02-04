@@ -275,9 +275,12 @@ body {
   border: 1px solid var(--border-soft);
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.5);
-  display: grid;
-  place-items: center;
-  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2.5rem;
+  padding: 2.5rem 2rem 4.5rem;
   text-align: center;
 }
 
@@ -286,8 +289,23 @@ body {
   height: auto;
   max-height: 65vh;
   object-fit: contain;
-  box-shadow: 0 14px 30px rgba(31, 31, 31, 0.12);
+  box-shadow:
+    0 18px 28px rgba(31, 31, 31, 0.16),
+    0 6px 12px rgba(31, 31, 31, 0.08);
   border-radius: 0;
+}
+
+.output__strip--print {
+  animation: strip-print 3s ease-out forwards;
+}
+
+@keyframes strip-print {
+  from {
+    transform: translateY(-120px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 600px) {
